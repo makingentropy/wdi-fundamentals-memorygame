@@ -27,38 +27,35 @@ var cards=[
 var cardsInPlay=[];
 var checkForMatch=function(){
 	if(cardsInPlay[0]===cardsInPlay[1]){
-			//alert("Sorry, try again.");
-			console.log("You found a match!");
+			alert("You found a match!");
+			//console.log("You found a match!");
 		}
 	else{
-			//alert("Sorry, try again.");
-			console.log("Sorry, try again.");
-			//the assignment says move this code here,
-			//but shows it as being a console.log() call
-			//rather than the alert it was previously. 
-			//Therefore,
-			//I changed it before moving it because
-			//it appeared to be an implicit instruction.
-			//However,
-			//In the very next section, the Deliverable 
-			//clearly pictures that an alert
-			//is still being used instead.
-			//It is unclear which one is the "correct"
-			//deliverable because the exercise was
-			//not carefully edited.
-			//I am giving the console.log version
-			//because it is less annoying.
+			alert("Sorry, try again.");
+			//console.log("Sorry, try again.");
+			
 		}
 }
-var flipCard=function(cardId){
-	console.log("User flipped "+cards[cardId].rank);
+var flipCard=function(){
+	var cardId=this.getAttribute('data-id');
 	cardsInPlay.push(cards[cardId].rank);
-	console.log(cards[cardId].cardImage);
-	console.log(cards[cardId].suit);
+	this.setAttribute('src',cards[cardId].cardImage);
+		//console.log("User flipped "+cards[cardId].rank);
+
+		
 	if(cardsInPlay.length===2){
 		checkForMatch();
 	}
-};
+}
+var createBoard=function(){
+	for(var i=0; i<cards.length;i++){
+		var cardElement = document.createElement('img');
+		cardElement.setAttribute('src',"images/back.png");
+		cardElement.setAttribute('data-id',i);
+		cardElement.addEventListener('click',flipCard);
+		document.getElementById('game-board').appendChild(cardElement);
+		//console.log(cardElement);
+	}
+}
 
-flipCard(0);
-flipCard(2);
+createBoard();
